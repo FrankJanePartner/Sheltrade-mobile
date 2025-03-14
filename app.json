@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "sheltradeMobile",
+    "slug": "sheltradeMobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/Icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/Icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#007bff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/Icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/Icon.png"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
+}
