@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const NotificationDetails = ({ route }) => {
+const NotificationScreen = ({ route }) => {
     const navigation = useNavigation();
     const { notification } = route.params;
 
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default NotificationDetails;
+export default NotificationScreen;

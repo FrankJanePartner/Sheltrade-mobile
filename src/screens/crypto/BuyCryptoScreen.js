@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 
-const BuyCryptoPage = () => {
+const BuyCryptoScreen = () => {
   const [amount, setAmount] = useState('');
   const [selectedCrypto, setSelectedCrypto] = useState('');
 
@@ -69,4 +69,4 @@ const BuyCryptoPage = () => {
   );
 };
 
-export default BuyCryptoPage;
+export default BuyCryptoScreen;

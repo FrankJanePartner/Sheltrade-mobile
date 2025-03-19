@@ -12,19 +12,8 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await axios.post(`${API_BASE_URL}/auth/login/`, {
-  //       email,
-  //       password
-  //     });
-  //     Alert.alert('Success', 'Logged in successfully!');
-  //     // Save token and navigate
-  //   } catch (error) {
-  //     Alert.alert('Error', error.response?.data?.non_field_errors?.[0] || 'Login failed');
-  //   }
-  // };
   const handleLogin = async () => {
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/login/`, {
         method : 'POST',
@@ -120,6 +109,21 @@ const styles = StyleSheet.create({
 
 
 export default LoginScreen;
+
+
+
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post(`${API_BASE_URL}/auth/login/`, {
+  //       email,
+  //       password
+  //     });
+  //     Alert.alert('Success', 'Logged in successfully!');
+  //     // Save token and navigate
+  //   } catch (error) {
+  //     Alert.alert('Error', error.response?.data?.non_field_errors?.[0] || 'Login failed');
+  //   }
+  // };
 
   //   backgroundColor: '#007bff',
   //   flex: 1,
@@ -277,5 +281,3 @@ export default LoginScreen;
 //     marginTop: 10,
 //   },
 // });
-
-// export default LoginScreen;

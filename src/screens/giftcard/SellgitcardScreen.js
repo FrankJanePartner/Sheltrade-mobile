@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 
-const SellGiftCard = () => {
+const SellgiftcardScreen = () => {
   const [form, setForm] = useState({
     cardName: '',
     cardType: '',
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SellGiftCard;
+export default SellgiftcardScreen;

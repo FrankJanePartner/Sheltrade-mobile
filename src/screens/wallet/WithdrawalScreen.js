@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const WithdrawScreen = ({ route }) => {
+const WithdrawalScreen = ({ route }) => {
     const navigation = useNavigation();
     const { withdrawalAccounts } = route.params || { withdrawalAccounts: [] };
     const [selectedAccount, setSelectedAccount] = useState(null);
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default WithdrawScreen;
+export default WithdrawalScreen;

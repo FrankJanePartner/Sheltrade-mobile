@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios'; 54.8k (gzipped: 28k)
 import * as SecureStore from 'expo-secure-store';
 
-interface AuthProps {
+interface AuthScreen {
   authState?: { token: string | null; authenticated: boolean | null };
   onRegister?: { username: string, email: string, password: string;  confirmPassword : string } => Promise<any>;
   onLogin?: { Username: string | null; email: string | null, password: string; };
@@ -75,4 +75,4 @@ interface AuthProps {
 //   );
 // };
 
-// export default AuthScreen;
+export default AuthScreen;

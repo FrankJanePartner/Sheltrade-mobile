@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert, Clipboard, StyleSheet, 
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 
-const Deposit = () => {
+const DepositScreen = () => {
   const navigation = useNavigation();
   const [amount, setAmount] = useState("");
   const [narration, setNarration] = useState("Generated Narration");
@@ -172,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Deposit;
+export default DepositScreen;

@@ -1,169 +1,132 @@
-{% extends "../formBase.html" %}
-{% load static %}
-{% block title %}Subscriptions{% endblock%}
-{% block content %}
-    <div class="container socialSignIn">
-        <div class="topSection">
-            <a href="/dashboard/" class="back">&larr; Go Back</a>
-            <a href="/">
-                <img src="{% static 'core/image/Logo.png' %}" alt="logo" class="logo">
-            </a>
-        </div>
-        <div class="formHeader">
-            <h1>Subscriptions</h1>
-        </div>
-        <form class="crypto-form" action="{% url 'billPayments:subscribe_tv' %}" method="post">
-                {% csrf_token %}
-                {% if error %}
-                    <div class="error-message">
-                        <p>{{ error }}</p>
-                    </div>
-                {% endif %}
-                <div class="form-group">
-                    <label for="service-provider"><h3>Select Service Provider</h3></label>
-                    <select id="service-provider" name="service-provider">
-                        <option value="">Select Service Provider</option>
-                        <option value="dstv">DSTV</option>
-                        <option value="gotv">GOTV</option>
-                        <option value="startimes">Startimes</option>
-                        <option value="showmax">Showmax</option>
-                    </select>
-                </div>
-                <div class="form-group" id="plan-selection">
-                    <label for="service-plan"><h3>Select Plan</h3></label>
-                    <select id="service-plan" name="service-plan">
-                        <option value="">-- Select Plan --</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="card-number">Smart Card Number</label>
-                    <input type="text" id="account-id card-number" name="card-number" placeholder="Enter Account/ID">
-                </div>
-                <div class="form-group">
-                    <label for="subscription-type"><h3>Subscription Type</h3></label>
-                    <select id="subscription-type" name="subscription-type">
-                        <option value="">Select Subscription Type</option>
-                        <option value="change">CHANGE BOUQUET</option>
-                        <option value="renew">RENEW BOUQUET</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="phone-number">Phone Number:</label>
-                    <input type="text" id="phone-number" name="phone" placeholder="Enter Phone Number" />
-                </div>
-                <div class="form-group amount">
-                    <label for="amount">Amount</label>
-                    <div class="amount-select input-plus-select">
-                        <select id="currency" name="currency">
-                            <option value="{{ currency_symbol }}">{{ currency_symbol }}</option>
-                        </select>
-                        <input type="number" id="amount" name="amount" placeholder="Enter amount">
-                    </div>
-                </div>
-                <div class="transaction-summary">
-                    <h3>Transaction Summary</h3>
-                    <div class="summary-item">
-                        <h4>Select Service Provider:</h4>
-                        <span id="summary-service-provider">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <h4>Select Plan:</h4>
-                        <span id="summary-meter-type">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <h4>Smart Card Number:</h4>
-                        <span id="summary-meter-number">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <h4>Subscription Type:</h4>
-                        <span id="summary-meter-number">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <h4>Phone Number:</h4>
-                        <span id="summary-phone-number">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <h4>Amount:</h4>
-                        <span id="summary-amount">-</span>
-                    </div>
-                </div>
-                <button type="submit" class="btn-primary" id="subscribe-btn">Proceed</button>
-            </form>
-        <script>
-            document.getElementById('service-provider').addEventListener('change', function () {
-                const serviceID = this.value;
-                const planSelect = document.getElementById('service-plan');
-            
-                if (serviceID) {
-                    fetch(`/billPayments/get-services/?serviceID=${serviceID}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Failed to fetch services');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            planSelect.innerHTML = '<option value="">-- Select Plan --</option>';
-                            if (data.content && data.content.varations) {
-                                data.content.varations.forEach(plan => {
-                                    const option = document.createElement('option');
-                                    option.value = plan.variation_code;
-                                    option.textContent = `${plan.name} - ₦${plan.variation_amount}`;
-                                    option.dataset.amount = plan.variation_amount;
-                                    planSelect.appendChild(option);
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching services:', error);
-                            alert('Error fetching service plans. Please try again.');
-                        });
-                }
-            });
-        
-            document.getElementById('subscribe-btn').addEventListener('click', function () {
-                const serviceID = document.getElementById('service-provider').value;
-                const variationCode = document.getElementById('service-plan').value;
-                const cardNumber = document.getElementById('card-number').value;
-                const subscriptionType = document.getElementById('subscription-type').value;
-                const phoneNumber = document.getElementById('phone-number').value;
-                const amount = document.querySelector(`#service-plan option[value="${variationCode}"]`).dataset.amount;
-            
-                if (serviceID && variationCode && cardNumber && subscriptionType && phoneNumber) {
-                    const formData = new FormData();
-                    formData.append('serviceID', serviceID);
-                    formData.append('variation_code', variationCode);
-                    formData.append('card_number', cardNumber);
-                    formData.append('subscription_type', subscriptionType);
-                    formData.append('phone', phoneNumber);
-                    formData.append('amount', amount);
-            
-                    fetch('/billPayments/subscribe/', {
-                        method: 'POST',
-                        body: formData,
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.json().then(data => {
-                                    throw new Error(data.error || 'Subscription failed.');
-                                });
-                            }
-                            window.location.href = '/billPayments/subscription-success/';
-                        })
-                        .catch(error => {
-                            console.error('Subscription error:', error);
-                            alert(`Error: ${error.message}`);
-                        });
-                } else {
-                    alert('Please fill in all fields.');
-                }
+import React, { useState } from 'react';
+import { View, Text, TextInput, Picker, Button, Alert, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+
+const SubscriptionScreen = () => {
+    const [serviceProvider, setServiceProvider] = useState('');
+    const [meterNumber, setMeterNumber] = useState('');
+    const [meterType, setMeterType] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [amount, setAmount] = useState('');
+    const [currency, setCurrency] = useState('₦');
+
+    const handleSubmit = async () => {
+        if (!serviceProvider || !meterNumber || !meterType || !phoneNumber || !amount) {
+            Alert.alert('Error', 'Please fill in all fields.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/billPayments/pay-electricity/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    serviceID: serviceProvider,
+                    meter_number: meterNumber,
+                    meter_type: meterType,
+                    phone: phoneNumber,
+                    amount,
+                })
             });
 
-            document.getElementById('service-plan').addEventListener('change', function () {
-                const selectedOption = this.options[this.selectedIndex];
-                const amount = selectedOption.dataset.amount || '';
-                document.getElementById('amount').value = amount;
-            });
-        </script>
-    </div>
-{% endblock %}
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Payment failed.');
+            }
+
+            Alert.alert('Success', 'Payment successful!');
+        } catch (error) {
+            Alert.alert('Error', error.message);
+        }
+    };
+
+    return (
+        <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => Alert.alert('Go back')}> 
+                    <Text style={styles.back}>&larr; Go Back</Text>
+                </TouchableOpacity>
+                <Text style={styles.title}>Bill Payment</Text>
+            </View>
+            <Picker selectedValue={serviceProvider} onValueChange={setServiceProvider} style={styles.input}>
+                <Picker.Item label="-- Select Service Provider --" value="" />
+                <Picker.Item label="Ikeja Electric (IKEDC)" value="ikeja-electric" />
+                <Picker.Item label="Eko Electric (EKEDC)" value="eko-electric" />
+                <Picker.Item label="Kaduna Electric (KAEDCO)" value="kaduna-electric" />
+            </Picker>
+            <TextInput
+                placeholder="Enter your meter number"
+                value={meterNumber}
+                onChangeText={setMeterNumber}
+                style={styles.input}
+            />
+            <Picker selectedValue={meterType} onValueChange={setMeterType} style={styles.input}>
+                <Picker.Item label="-- Select Meter Type --" value="" />
+                <Picker.Item label="Prepaid" value="prepaid" />
+                <Picker.Item label="Postpaid" value="postpaid" />
+            </Picker>
+            <TextInput
+                placeholder="Enter your phone number"
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
+                style={styles.input}
+            />
+            <View style={styles.amountContainer}>
+                <Picker selectedValue={currency} onValueChange={setCurrency} style={styles.currencyPicker}>
+                    <Picker.Item label="₦" value="₦" />
+                    <Picker.Item label="$" value="$" />
+                </Picker>
+                <TextInput
+                    placeholder="Enter amount"
+                    value={amount}
+                    onChangeText={setAmount}
+                    keyboardType="numeric"
+                    style={styles.amountInput}
+                />
+            </View>
+            <Button title="Proceed" onPress={handleSubmit} color="#ff7f50" />
+        </ScrollView>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 20,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    back: {
+        color: '#ff7f50',
+        fontSize: 18,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
+    input: {
+        backgroundColor: '#f0f0f0',
+        marginBottom: 10,
+        padding: 10,
+        borderRadius: 8,
+    },
+    amountContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    currencyPicker: {
+        width: 80,
+    },
+    amountInput: {
+        flex: 1,
+        backgroundColor: '#f0f0f0',
+        padding: 10,
+        marginLeft: 10,
+        borderRadius: 8,
+    }
+});
+
+export default SubscriptionScreen;

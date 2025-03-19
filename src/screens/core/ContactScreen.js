@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
 
-const ContactUs = () => {
+const ContactScreen = () => {
   const handleSubmit = () => {
     Alert.alert('Your message was submitted successfully.');
   };
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContactUs;
+export default ContactScreen;

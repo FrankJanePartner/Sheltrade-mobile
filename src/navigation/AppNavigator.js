@@ -63,7 +63,7 @@ export default function AppNavigator() {
 
         // Billpayment Screens
         <Stack.Screen name="Billpayment" component={BillpaymentScreen} />
-        <Stack.Screen name="Subscription" component={SubscriptionScreen} />
+        <Stack.Screen name="Subscription" component={SubscriptionScreen}/>
 
         // Crypto Screens
         <Stack.Screen name="BuyCrypto" component={BuyCryptoScreen} />

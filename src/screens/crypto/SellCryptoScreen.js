@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
-const SellCryptoPage = () => {
+const SellCryptoScreen = () => {
   const [amount, setAmount] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
 
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SellCryptoPage;
+export default SellCryptoScreen;

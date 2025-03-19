@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
-const Dashboard = () => {
+const DashboardScreen = () => {
   const menuItems = [
     { icon: 'wallet', label: 'Wallet', link: '/wallet/' },
     { icon: 'download', label: 'Deposit', link: '/wallet/deposit/' },
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Dashboard;
+export default DashboardScreen;
 
 
 // // src/screens/HomeScreen.js

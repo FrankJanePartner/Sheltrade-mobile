@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, ScrollView, TouchableOpacity, Button, StyleSheet } from 'react-native';
 
-const BuyGiftCard = ({ giftcards = [], currencySymbol = '$', charge = 0 }) => {
+const BuygiftcardScreen = ({ giftcards = [], currencySymbol = '$', charge = 0 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BuyGiftCard;
+export default BuygiftcardScreen;
