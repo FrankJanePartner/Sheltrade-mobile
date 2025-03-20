@@ -6,20 +6,18 @@ import { NavigationContainer } from '@react-navigation/native';
 // Core Screens
 import ContactScreen from '../screens/core/ContactScreen';
 import HomeScreen from '../screens/core/HomeScreen';
-import DashboardScreen from '../screens/core/Dashboard';
+import DashboardScreen from '../screens/core/DashboardScreen';
 import LoadingScreen from '../screens/core/LoadingScreen';
 import NotificationScreen from '../screens/core/NotificationScreen';
 
-
 // Account Screens
-import AuthScreen from '../screens/account/AuthScreen';
 import ForgotPasswordScreen from '../screens/account/ForgotPasswordScreen';
 import LoginScreen from '../screens/account/LoginScreen';
 import SignupScreen from '../screens/account/SignupScreen';
 import VerifyEmailScreen from '../screens/account/VerifyEmailScreen';
 
 // Billpayments Screens
-import BillsPaymentScreen from '../screens/account/BillsPaymentScreen';
+import BillPaymentScreen from '../screens/account/BillPaymentScreen';
 import SubscriptionScreen from '../screens/account/SubscriptionScreen';
 
 // Crypto Screens
@@ -27,8 +25,8 @@ import BuyCryptoScreen from '../screens/Crypto/BuyCryptoScreen';
 import SellCryptoScreen from '../screens/Crypto/SellCryptoScreen';
 
 // GiftCard Screens
-import BuyGiftcardScreen from '../screens/giftcard/BuygiftcardScreen';
-import SellGiftcardScreen from '../screens/giftcard/SellGiftcardScreen';
+import BuygiftcardScreen from '../screens/giftcard/BuygiftcardScreen';
+import SellgitcardScreen from '../screens/giftcard/SellgitcardScreen';
 
 // MobileTopUp Screens
 import BuyAirtimeScreen from '../screens/mobileTopUp/BuyAirtimeScreen';
@@ -58,14 +56,13 @@ export default function AppNavigator() {
         <Stack.Screen name="Notification" component={NotificationScreen} />
 
         // Account Screens
-        <Stack.Screen name="Auth" component={AuthScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
 
         // Billpayment Screens
-        <Stack.Screen name="Billpayment" component={BillpaymentScreen} />
+        <Stack.Screen name="Billpayment" component={BillPaymentScreen} />
         <Stack.Screen name="Subscription" component={SubscriptionScreen}/>
 
         // Crypto Screens
@@ -74,7 +71,7 @@ export default function AppNavigator() {
 
         // GiftCard Screens
         <Stack.Screen name="BuyGiftcard" component={BuygiftcardScreen} />
-        <Stack.Screen name="SellGiftcard" component={SellGiftcardScreen} />
+        <Stack.Screen name="SellGiftcard" component={SellgitcardScreen} />
 
         // MobileTopUp Screens
         <Stack.Screen name="BuyAirtime" component={BuyAirtimeScreen} />

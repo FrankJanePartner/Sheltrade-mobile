@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Picker, Button, Alert, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
-const BillpaymentScreen = () => {
+const BillPaymentScreen = () => {
     const [serviceProvider, setServiceProvider] = useState('');
     const [meterNumber, setMeterNumber] = useState('');
     const [meterType, setMeterType] = useState('');
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BillpaymentScreen;
+export default BillPaymentScreen;
