@@ -1,6 +1,7 @@
 // src/screens/LoadingScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Animated } from 'react-native';
+import { View, Text, Image, StyleSheet, Animated, ActivityIndicator } from 'react-native';
+
 
 export default function LoadingScreen({ navigation }) {
   const [progress, setProgress] = useState(0);
@@ -35,7 +36,7 @@ export default function LoadingScreen({ navigation }) {
         style={[styles.image, { opacity: fadeAnim }]}
       />
       <View style={styles.progressBar}>
-        <View style={[styles.progress, { width: `${progress}%` }]} />
+        <ActivityIndicator style={[styles.progress, { width: `${progress}%` }]}/>
       </View>
       <Text style={styles.text}>{progress}%</Text>
     </View>
@@ -70,3 +71,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+

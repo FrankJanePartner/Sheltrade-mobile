@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, Button, } from 'react-native';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { useAuth } from "../../context/AuthContext";
+
 
 const DashboardScreen = () => {
+  const { logout } = useAuth();
   const menuItems = [
     { icon: 'wallet', label: 'Wallet', link: '/wallet/' },
     { icon: 'download', label: 'Deposit', link: '/wallet/deposit/' },
@@ -36,6 +39,7 @@ const DashboardScreen = () => {
             <FontAwesome5 name={item.icon} size={24} color="white" />
             <Text style={styles.itemLabel}>{item.label}</Text>
           </TouchableOpacity>
+          // <Button title="Logout" onPress={logout} />
         ))}
       </View>
 

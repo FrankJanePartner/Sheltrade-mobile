@@ -1,4 +1,5 @@
 import React from 'react';
+import { SafeAreaView } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -39,12 +40,14 @@ import DepositScreen from '../screens/wallet/DepositScreen';
 import TransactionScreen from '../screens/wallet/TransactionScreen';
 import WalletScreen from '../screens/wallet/WalletScreen';
 import WithdrawalScreen from '../screens/wallet/WithdrawalScreen';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Stack = createStackNavigator();
 
 export default function AppNavigator() {
   return (
+    <SafeAreaView>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         // Core Screens
@@ -84,7 +87,8 @@ export default function AppNavigator() {
         <Stack.Screen name="Wallet" component={WalletScreen} />
         <Stack.Screen name="Withdrawal" component={WithdrawalScreen} />
       </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+    </SafeAreaView>  
   );
 }
 
