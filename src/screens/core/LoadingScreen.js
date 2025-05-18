@@ -1,32 +1,35 @@
-// src/screens/LoadingScreen.js
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Animated, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, Image, StyleSheet, Animated } from 'react-native';
 
-
-export default function LoadingScreen({ navigation }) {
+export default function LoadingScreen({ onFinishLoading }) {
   const [progress, setProgress] = useState(0);
-  const fadeAnim = new Animated.Value(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((oldProgress) => {
         if (oldProgress >= 100) {
           clearInterval(interval);
-          navigation.replace('Home'); // Navigate to home when done
+          onFinishLoading(); // Call callback to update isReady in App.js
           return 100;
         }
         return oldProgress + 5;
       });
     }, 500);
 
-    Animated.loop(
+    const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
-        Animated.timing(fadeAnim, { toValue: 0, duration: 500, useNativeDriver: true })
+        Animated.timing(fadeAnim, { toValue: 0, duration: 500, useNativeDriver: true }),
       ])
-    ).start();
+    );
 
-    return () => clearInterval(interval);
+    animation.start();
+
+    return () => {
+      clearInterval(interval);
+      animation.stop();
+    };
   }, []);
 
   return (
@@ -36,7 +39,7 @@ export default function LoadingScreen({ navigation }) {
         style={[styles.image, { opacity: fadeAnim }]}
       />
       <View style={styles.progressBar}>
-        <ActivityIndicator style={[styles.progress, { width: `${progress}%` }]}/>
+        <View style={[styles.progress, { width: `${progress}%` }]} />
       </View>
       <Text style={styles.text}>{progress}%</Text>
     </View>
@@ -71,4 +74,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-

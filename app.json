@@ -1,8 +1,7 @@
-// api.cache(false)
 {
   "expo": {
-    "name": "sheltradeMobile",
-    "slug": "sheltradeMobile",
+    "name": "Sheltrade",
+    "slug": "Sheltrade",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Icon.png",
@@ -29,15 +28,7 @@
       "favicon": "./assets/Icon.png"
     },
     "plugins": [
-      "expo-secure-store",
-      [
-      "module:react-native-dotenv",
-      {
-        "envName": "APP_ENV",
-        "moduleName": "@env",
-        "path": ".env"
-      }
-    ]
+      "expo-secure-store"
     ]
   }
 }
